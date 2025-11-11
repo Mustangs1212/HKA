@@ -157,10 +157,9 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="30" y="43" useTextEdit="1" path="Source/Aufgabe2_1.s" left="0" top="24" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="77" y="36" useTextEdit="1" path="../../../../MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_1/Aufgabe 4/Aufgabe 4 (3).s" left="0" top="6" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="54" useTextEdit="1" path="Source/Aufgabe2_2.s" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="24" useTextEdit="1" path="Source/Aufgabe2_3.s" left="0" selected="1" top="6" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="14" useTextEdit="1" path="../../../../MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_2/Aufgabe2_3.s" left="0" top="7" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="15" useTextEdit="1" path="Source/Aufgabe2_2.s" left="0" selected="1" top="15" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="14" useTextEdit="1" path="Source/Aufgabe2_3.s" left="0" top="6" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe1_3.s" left="0" top="0" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="Aufgabe2" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="Simulator" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Enes/Enes Dosya/Studium/HKA/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_2" debugSearchPath="" autoConnectCapabilities="4415"/>
 </session>
