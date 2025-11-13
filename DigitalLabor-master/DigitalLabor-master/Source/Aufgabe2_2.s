@@ -19,9 +19,9 @@ main:
         mov r2, #0          // Ergebnis (low)
         mov r3, #0          // Überlaufzähler (high)
         
-        b loop
+        b fact_loop
         
-while_loop:
+add_loop:
         cmp r1, #0          // Wenn 0
         beq stop
         
@@ -29,7 +29,7 @@ while_loop:
         adds r2, r2, r0      // Addiere Multiplikand zu Ergebnis (low)
         adc r3, r3, #0       // Addiere Übertrag zu High-Teil
         sub r1, r1, #1       // Multiplikator verringern(Fürs wiederhilen
-        b   while_loop       
+        b   add_loop       
 
         // mit bne while_loop + cmp beq außer while loop tragen, darf mann eine do-while haben
         
@@ -37,7 +37,7 @@ while_loop:
 // Teil 2
         
 
-loop:
+fact_loop:
         tst r1, #1 // Prüfe niedrigstes Bit des Multiplikators
         beq skip_add // Wenn Bit = 0
         adds r2, r2, r0
@@ -47,8 +47,8 @@ skip_add:
         movs r1, r1, lsr #1
         beq stop
 
-        movs r0, r0, lsl #1
-        b loop
+        movs r0, r0, lsl #1 // Multiplikant multiplizieren 
+        b fact_loop
 
 stop:
 	nop

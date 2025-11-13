@@ -16,7 +16,7 @@
 .equ BREAD_bm, (1 << 0) 
 .equ BUTTER_bm, (1 << 1)
 .equ CHEESE_bm, (1 << 2)
-.equ BREAKFAST_bm, (BREAD_bm | BUTTER_bm | CHEESE_bm)
+.equ BBC_bm, (BREAD_bm | BUTTER_bm | CHEESE_bm)
 
 // Byte 1
 .equ TEQUILA_bm, (1 << 8)
@@ -44,7 +44,7 @@ main:
         ldr r0, =#BREAKFAST_bm
         ldr r1, =#(BREAKFAST_bm | NUTS_bm)
         ldr r2, =#((BREAKFAST_bm) & ~(MILK_bm) | VINE_bm)
-        ldr r3, =#(FRUITS_bm & MILK_bm & MILK_bm) // Warum 0 Bit?
+        ldr r3, =#(FRUITS_bm | MILK_bm | MILK_bm << 16) // Milk um 16 nach links verschieben
         ldr r4, =#((BREAKFAST_bm & ~BUTTER_bm) | (DRINKS_bm & ~(MILK_bm))) // Bekommt er alle Drinks 
 
 
