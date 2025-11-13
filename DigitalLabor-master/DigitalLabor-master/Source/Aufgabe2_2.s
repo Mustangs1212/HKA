@@ -19,17 +19,16 @@ main:
         mov r2, #0          // Ergebnis (low)
         mov r3, #0          // Überlaufzähler (high)
         
-        b fact_loop
-        
-add_loop:
         cmp r1, #0          // Wenn 0
         beq stop
+
+add_loop:
         
 
         adds r2, r2, r0      // Addiere Multiplikand zu Ergebnis (low)
         adc r3, r3, #0       // Addiere Übertrag zu High-Teil
-        sub r1, r1, #1       // Multiplikator verringern(Fürs wiederhilen
-        b   add_loop       
+        subs r1, r1, #1       // Multiplikator verringern(Fürs wiederhilen
+        bne   add_loop       
 
         // mit bne while_loop + cmp beq außer while loop tragen, darf mann eine do-while haben
         

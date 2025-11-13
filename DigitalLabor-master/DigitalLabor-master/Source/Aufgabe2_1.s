@@ -38,14 +38,14 @@
 .equ LEMON_bm, (1 << 18)
 .equ FRUITS_bm, (APPLE_bm | MANGO_bm | LEMON_bm)
 
-// Frihstück 
+// Frühstück 
 .equ BREAKFAST_bm, (BREAD_bm | BUTTER_bm | CHEESE_bm | MILK_bm | PEANUT_bm | LEMON_bm)
 main:
         ldr r0, =#BREAKFAST_bm
         ldr r1, =#(BREAKFAST_bm | NUTS_bm)
         ldr r2, =#((BREAKFAST_bm) & ~(MILK_bm) | VINE_bm)
         ldr r3, =#(FRUITS_bm | MILK_bm | MILK_bm << 16) // Milk um 16 nach links verschieben
-        ldr r4, =#((BREAKFAST_bm & ~BUTTER_bm) | (DRINKS_bm & ~(MILK_bm))) // Bekommt er alle Drinks 
+        ldr r4, =#(BREAKFAST_bm & ~BUTTER_bm & ~CHEESE_bm & ~(MILK_bm) | VODKA_bm)
 
 
 

@@ -23,7 +23,7 @@ loop:
         movlt   r5, #0           // Wenn < 80 -> 0
         movge   r5, #8           // Wenn >= 80 -> 8
 
-        lsl     r1, r1, #4       // Ergebnis nach links schieben (neues Nibble frei)
+        lsl     r1, r1, #4       // Ergebnis nach links schieben (neues Nibble frei
         orr     r1, r1, r5       // Oder gatter für neues Nibble anhängen
 
         subs    r3, r3, #1       // Zähler --
