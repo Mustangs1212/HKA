@@ -74,6 +74,8 @@
   <ProjectSessionItem path="Digitallabor"/>
   <ProjectSessionItem path="Digitallabor;Aufgabe2"/>
   <ProjectSessionItem path="Digitallabor;Aufgabe2;Source"/>
+  <ProjectSessionItem path="Digitallabor;Aufgabe3"/>
+  <ProjectSessionItem path="Digitallabor;Aufgabe3;Source"/>
   <ProjectSessionItem path="Digitallabor;Aufgabe9"/>
   <ProjectSessionItem path="Digitallabor;Aufgabe9;Source"/>
   <ProjectSessionItem path="Digitallabor;BeispielAufgabe"/>
@@ -154,10 +156,8 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="54" y="45" useTextEdit="1" path="Source/Aufgabe2_1.s" left="0" top="23" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="13" y="29" useTextEdit="1" path="Source/Aufgabe2_2.s" left="0" top="12" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="21" useTextEdit="1" path="Source/Aufgabe2_3.s" left="0" selected="1" top="15" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="10" useTextEdit="1" path="Source/Aufgabe3_4.s" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="6" y="18" useTextEdit="1" path="Source/Aufgabe3_1.s" left="0" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="15" useTextEdit="1" path="G:/Andere Computer/Mein Laptop/Enes Dosya/Studium/HKA/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_3/Aufgabe3_1.s" left="0" top="59" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="Aufgabe2" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="Simulator" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Enes/Enes Dosya/Studium/HKA/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_2" debugSearchPath="" autoConnectCapabilities="4415"/>
+ <EMStudioWindow activeProject="Aufgabe3" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="Simulator" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="G:/Andere Computer/Mein Laptop/Enes Dosya/Studium/HKA/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_3" debugSearchPath="" autoConnectCapabilities="4415"/>
 </session>
