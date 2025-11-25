@@ -15,15 +15,24 @@
 .equ DELAYCONST, 3
 
 main:
-
-loop_start:
-        bl delay
-        b loop_start
-
-delay:
+    bl delay // delay einmal ausführen
 
 stop:
-	nop
-	bal stop
+    nop
+    bal stop
 
-.end
+// delay() ohne Parameter
+delay:
+    sub     sp, sp, #4 // Stackplatz reservieren
+    stm     sp, {r4} // r4 sichern
+
+    ldr     r4, =DELAYCONST
+
+delay_loop:
+    subs    r4, r4, #1
+    bne     delay_loop
+
+    ldm     sp, {r4} // r4 zurückladeen
+    add     sp, sp, #4 // stackpointer bereinigen
+
+    bx      lr
