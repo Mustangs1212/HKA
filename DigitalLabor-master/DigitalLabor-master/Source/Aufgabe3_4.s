@@ -3,8 +3,8 @@
  *
  * SoSe 2024
  *
- *  Created on: <$Date>
- *      Author: <$Name>
+ *  Created on: <$25.11.2025>
+ *      Author: <$Muhammed Enes Ercan>
  *
  *	Aufgabe : nterprogrammaufruf mit Übergebe von mehreren Parametern - Division
  */

@@ -163,10 +163,10 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="18" useTextEdit="1" path="Source/Aufgabe3_1.s" left="0" top="10" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="19" useTextEdit="1" path="Source/Aufgabe3_2.s" left="0" selected="1" top="10" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="6" y="31" useTextEdit="1" path="Source/Aufgabe3_3.s" left="0" top="15" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="44" useTextEdit="1" path="Source/Aufgabe3_4.s" left="0" top="28" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="34" useTextEdit="1" path="Source/Aufgabe3_1.s" left="0" top="7" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="29" y="23" useTextEdit="1" path="Source/Aufgabe3_2.s" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="40" useTextEdit="1" path="Source/Aufgabe3_3.s" left="0" top="22" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="12" useTextEdit="1" path="Source/Aufgabe3_4.s" left="0" selected="1" top="0" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="Aufgabe3" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="Simulator" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Enes/Enes Dosya/Studium/HKA/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_3" debugSearchPath="" autoConnectCapabilities="4415"/>
 </session>
