@@ -8,32 +8,68 @@
  *
  *	Aufgabe : Werte Binarisieren
  */
-.text /* Specify that code goes in text segment */
-.code 32 /* Select ARM instruction set */
-.global main /* Specify global symbol */
+        .text
+        .code 32
+        .global main
+
+/* -------------------------------------------------------
+   32-Bit Fibonacci-LFSR
+   Polynomial: x^22 + x^18 + x^10 + 1
+   Taps (bit positions, 0 = LSB):
+        22, 18, 10, 0
+
+   Eingabe : R0 = aktueller LFSR-Wert
+   Ausgabe : R0 = neuer Wert
+------------------------------------------------------- */
+        .thumb
+        .align 2
+        .global lfsr32
+lfsr32:
+        @ R0 enthält aktuelles LFSR
+        mov     r1, r0
+
+        @ Bits extrahieren
+        lsrs    r2, r1, #22     @ Bit 22 → r2
+        ands    r2, r2, #1
+
+        lsrs    r3, r1, #18     @ Bit 18 → r3
+        ands    r3, r3, #1
+        eors    r2, r2, r3      @ XOR sammeln
+
+        lsrs    r3, r1, #10     @ Bit 10 → r3
+        ands    r3, r3, #1
+        eors    r2, r2, r3
+
+        ands    r3, r1, #1      @ Bit 0
+        eors    r2, r2, r3      @ r2 = feedback bit
+
+        @ SHIFT RIGHT & feedback in Bit 31
+        lsrs    r0, r0, #1
+        lsls    r2, r2, #31
+        orrs    r0, r0, r2
+
+        bx      lr
+
+
+
+
+        .thumb
+        .align 2
+        .code 32
 main:
-        ldr     r0, =data        // Zeiger auf Datenfeld
-        mov     r1, #0           // Ergebnisregister
-        mov     r2, #80          // Grenzwert
-        mov     r3, #8           // Anzahl der Werte
+        mov     r4, #0          @ high-word Seed-Split
+        ldr     r0, =225567     @ low-word in R0 (Startwert)
 
-loop:
-        ldr     r4, [r0], #4     // Lade Wert, nach dem laden Zeiger 4 erhöhen
-        cmp     r4, r2
-        movlt   r5, #0           // Wenn < 80 -> 0
-        movge   r5, #8           // Wenn >= 80 -> 8
+        mov     r5, #11         @ 11 Werte berechnen
 
-        lsl     r1, r1, #4       // Ergebnis nach links schieben (neues Nibble frei
-        orr     r1, r1, r5       // Oder gatter für neues Nibble anhängen
+loop_gen:
+        push    {r0}            @ alten Wert FILO auf Stack legen
 
-        subs    r3, r3, #1       // Zähler --
-        bne     loop
+        bl      lfsr32          @ neuen LFSR-Wert berechnen
+
+        subs    r5, r5, #1
+        bne     loop_gen
 
 stop:
         nop
-        bal     stop
-
-.data
-data:
-        .word  10, 200, 44, 96, 123, 79, 81, 5 // 4 Byte lang
-.end
+        b       stop
