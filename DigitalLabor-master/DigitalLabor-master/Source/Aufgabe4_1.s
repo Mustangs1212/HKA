@@ -14,8 +14,7 @@
 
 .global absSub
 absSub:
-        sub r0, r1, r2     // r0 = y - z
-        cmp r0, #0
+        subs r0, r1, r2     // r0 = y - z
         rsblt r0, r0, #0   // wenn r0 < 0 --> r0 = 0 - r0
         bx lr
 

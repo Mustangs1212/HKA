@@ -14,7 +14,7 @@
 
 
 add_bcd8:
-        push    {r4-r8, lr}
+        push    {r2-r8, lr}
 
         mov     r2, #8          // Stellenzähler (8 Nibbles)
         mov     r3, #0xF        // Maske für 1 BCD-Nibble
@@ -45,14 +45,12 @@ bcd_loop:
 no_carry_bcd:
 
         // Ergebnis an richtiger Stelle einfügen
-        orr     r4, r4, r6, lsl r8
+        orr     r4, r4, r6
 
-        // Eingabe eine Stelle weiter schieben#
-        lsr     r0, r0, #4
-        lsr     r1, r1, #4
-
-        // Ergebnisposition +4 Bits
-        add     r8, r8, #4
+        // Eingabe eine Stelle weiter schieben
+        ror     r0, r0, #4
+        ror     r1, r1, #4
+        ror     r4, r4, #4
 
         subs    r2, r2, #1
         b       bcd_loop
@@ -61,14 +59,14 @@ bcd_finished:
         // Finaler Carry wird verworfen (8-stellige Ausgabe)
         mov     r0, r4
 
-        pop     {r4-r8, lr}
+        pop     {r2-r8, lr}
         bx      lr
 
 
 main:
         // Mehrfachüberläufe
-        ldr     r0, =0x00008999
-        ldr     r1, =0x00001111
+        ldr     r0, =0x12345678
+        ldr     r1, =0x55555555
         bl add_bcd8
 
         // Einfach, ohne Überlauf
