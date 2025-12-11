@@ -16,11 +16,10 @@
 absSub:
         sub r0, r1, r2     // r0 = y - z
         cmp r0, #0
-        rsblt r0, r0, #0   // wenn r0 < 0 → r0 = 0 - r0
+        rsblt r0, r0, #0   // wenn r0 < 0 --> r0 = 0 - r0
         bx lr
 
 
-.global berechne
 .global berechne
 berechne:
         stmfd sp!, {r4-r6, lr}    // Register sichern

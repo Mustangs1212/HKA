@@ -13,65 +13,58 @@
 .global main /* Specify global symbol */
 
 
-/* ---------------------------------------------------------
-   add_bcd8
-   Addiert zwei 8-stellige BCD-Zahlen in r0 und r1.
-   Ergebnis kommt in r0 zurück.
---------------------------------------------------------- */
 add_bcd8:
         push    {r4-r8, lr}
 
-        mov     r2, #8          @ Stellenzähler (8 Nibbles)
-        mov     r3, #0xF        @ Maske für 1 BCD-Nibble
-        mov     r4, #0          @ Ergebnisregister
-        mov     r5, #0          @ Übertrag (carry)
-        mov     r8, #0          @ Bitposition im Ergebnis (0,4,8,...)
+        mov     r2, #8          // Stellenzähler (8 Nibbles)
+        mov     r3, #0xF        // Maske für 1 BCD-Nibble
+        mov     r4, #0          // Ergebnisregister
+        mov     r5, #0          // carry 
+        mov     r8, #0          // Bitposition im Ergebnis
 
 bcd_loop:
         cmp     r2, #0
         beq     bcd_finished
 
-        @ --- Niedrigste Stellen isolieren ---
-        and     r6, r0, r3      @ Stelle aus BCD1
-        and     r7, r1, r3      @ Stelle aus BCD2
+        // Niedrigste Stellen isolieren
+        and     r6, r0, r3     
+        and     r7, r1, r3      
 
-        @ --- Summe bilden ---
+        // Summe bilden 
         add     r6, r6, r7
         add     r6, r6, r5
 
-        @ --- Carry prüfen ---
+        // Carry prüfen 
         mov     r5, #0
         cmp     r6, #10
         blt     no_carry_bcd
 
-        sub     r6, r6, #10     @ BCD-Korrektur
-        mov     r5, #1          @ neuen Carry setzen
+        sub     r6, r6, #10     // BCD-Korrektur
+        mov     r5, #1          // neuen Carry setzen
 
 no_carry_bcd:
 
-        @ --- Ergebnis an richtiger Stelle einfügen ---
+        // Ergebnis an richtiger Stelle einfügen
         orr     r4, r4, r6, lsl r8
 
-        @ --- Eingabe eine Stelle weiter schieben ---
+        // Eingabe eine Stelle weiter schieben#
         lsr     r0, r0, #4
         lsr     r1, r1, #4
 
-        @ --- Ergebnisposition +4 Bits ---
+        // Ergebnisposition +4 Bits
         add     r8, r8, #4
 
         subs    r2, r2, #1
         b       bcd_loop
 
 bcd_finished:
-        @ Finaler Carry wird verworfen (8-stellige Ausgabe)
+        // Finaler Carry wird verworfen (8-stellige Ausgabe)
         mov     r0, r4
 
         pop     {r4-r8, lr}
         bx      lr
 
-/* ---------------------------------------------------------
-   Testprogramm
---------------------------------------------------------- */
+
 main:
         // Mehrfachüberläufe
         ldr     r0, =0x00008999
