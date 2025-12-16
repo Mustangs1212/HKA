@@ -13,12 +13,17 @@
 .global main /* Specify global symbol */
 
 divide:
-    push {r4, r5, r6, lr} // Temp Register sichern
+    push {r4- r6, lr} // Temp Register sichern
     mov r4, r0
 
     mov r5, r1 // Divisor
 
     mov r6, #0 // Quotient
+
+    cmp r1, #0
+    moveq r3, #-1                  
+    beq error
+    mov r3, #0
 
 loop_division:
     cmp r4, #0
@@ -32,7 +37,7 @@ loop_division:
 
 end_loop:
     // Wir haben 1x zu viel subtrahiert --> rückgängig machen 
-    // if (Dividend < 0) → Korrektur
+    // if (Dividend < 0) --> Korrektur
     cmp r4, #0
     bge no_correction
 
@@ -44,8 +49,8 @@ no_correction:
     mov r0, r6   // Quotient
     mov r1, r4   // Rest
 
-    // Register wiederherstellen
-    pop {r4, r5, r6, lr}
+error:
+    pop {r4- r6, lr}
     bx lr
 
 
@@ -55,7 +60,7 @@ main:
 
     bl divide
 
-    // Ergebnis steht nun in r0 (Quotient) und r1 (Rest)
+    // Ergebnis in r0 und r1 (Rest)
 
 stop:
     nop
