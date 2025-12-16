@@ -2,11 +2,11 @@
 <session>
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <BreakpointListItem trigger="" line="104" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="82" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="87" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="92" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
   <BreakpointListItem trigger="" line="97" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="75" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="80" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="85" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="90" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
   <Exceptions set="Reset;Undef;P_Abort;D_Abort"/>
  </Breakpoints>
  <ExecutionProfileWindow/>
@@ -168,9 +168,11 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="25" useTextEdit="1" path="Source/Aufgabe4_3.s" left="0" selected="1" top="15" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe3_1.s" left="0" top="50" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe3_2.s" left="0" top="43" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="45" useTextEdit="1" path="Source/Aufgabe4_3.s" left="0" selected="1" top="22" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe3_1.s" left="0" top="26" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe3_2.s" left="0" top="21" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="22" useTextEdit="1" path="Source/Aufgabe4_1.s" left="0" top="39" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="59" useTextEdit="1" path="Source/Aufgabe4_2.s" left="0" top="50" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="Aufgabe4" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="Simulator" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/enesercan/Dropbox/Enes Dosya/Studium/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/Blatt_3" debugSearchPath="" autoConnectCapabilities="4415"/>
 </session>
