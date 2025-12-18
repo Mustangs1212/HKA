@@ -28,47 +28,51 @@ public class Hashtable<K extends Comparable<K>, V> extends de.hska.iwi.ads.dicti
 
             Entry<K, V> entry = hashtable[index];
 
+            //Falls leer → Schlüssel existiert nicht
             if (entry == null) {
                 return null;
             }
 
+            // Falls gefunden → Wert zurückgeben
             if (entry.getKey().equals(key)) {
                 return entry.getValue();
             }
+
+            //Falls anderer Schlüssel → weiter sondieren
         }
         return null;
     }
 
     @Override
     public V put(K key, V value) {
-
         if (key == null) {
             throw new NullPointerException("Key must not be null");
         }
+
         int hash = Math.abs(key.hashCode()) % hashtable.length;
 
-        // Quadratisches Sondieren
         for (int i = 0; i < hashtable.length; i++) {
             int index = (hash + i * i) % hashtable.length;
             Entry<K, V> entry = hashtable[index];
 
             if (entry == null) {
-                // Leerer Slot gefunden, neues Entry einfügen
+                // Falls Platz frei → einfügen
                 hashtable[index] = new AbstractMap.SimpleEntry<>(key, value);
+                size++;
                 return null;
             }
-
+            // Falls gleicher Schlüssel → Wert überschreiben
             if (entry.getKey().equals(key)) {
-                // Schlüssel bereits vorhanden, Wert aktualisieren
                 V oldValue = entry.getValue();
                 hashtable[index] = new AbstractMap.SimpleEntry<>(key, value);
                 return oldValue;
             }
-
+            // Falls belegt → quadratisch sondieren
         }
 
-        // Kein Platz mehr gefunden
+        // Falls kein Platz
         throw new DictionaryFullException();
     }
+
 
 }

@@ -26,7 +26,7 @@ public class BinarySearchTree<K extends Comparable<K>, V>
     public V put(K key, V value) {
         if (root == null) {
             root = new Node(key, value);
-            size++;                 // <<< NEU: Größe erhöhen
+            size++;
             return null;
         }
 

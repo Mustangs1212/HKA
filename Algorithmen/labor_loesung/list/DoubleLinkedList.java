@@ -34,7 +34,6 @@ public class DoubleLinkedList<K extends Comparable<K>, V>
         }
         ListElement element = findElement(keyObj);
         return (element == null) ? null : (V) element.entry.getValue();
-
     }
 
     /**
@@ -56,16 +55,8 @@ public class DoubleLinkedList<K extends Comparable<K>, V>
         // Neues Entry erzeugen
         Entry<K, V> newEntry = new AbstractMap.SimpleEntry<>(key, value);
 
-        // Neues Element mit (entry, prev, next) erzeugen
-        ListElement newElem = new ListElement(newEntry, null, head);
-
-        // Falls alte Liste nicht leer war: Vorverkettung setzen
-        if (head != null) {
-            head.previous = newElem;
-        }
-
         // Kopf verschieben
-        head = newElem;
+        head = new ListElement(newEntry, null, head);
         size++;
 
         return null;
