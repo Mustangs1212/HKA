@@ -12,7 +12,7 @@ Code, Compile, Run and Debug online from anywhere in world.
 
 using namespace std;
 
-int calculateWinner(array<array<int,3>, 3> field) {
+int calculateWinner(const array<array<int,3>, 3> &field) {
 	for (int i = 0; i < field.size(); i++) {
 		if(field[0][i] != 0 &&  field[0][i] == field[1][i] && field[1][i] == field[2][i]) {
 			return field[0][i];
