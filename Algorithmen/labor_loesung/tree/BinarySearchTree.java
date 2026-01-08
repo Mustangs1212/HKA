@@ -41,7 +41,7 @@ public class BinarySearchTree<K extends Comparable<K>, V>
                 // Schlüssel existiert → Wert ersetzen
                 V oldVal = current.entry.getValue();
                 current.entry.setValue(value);
-                return oldVal;      // <<< Größe bleibt unverändert!
+                return oldVal;      // Größe bleibt unverändert!
             }
             else if (cmp < 0) {
                 current = current.left;
@@ -59,9 +59,9 @@ public class BinarySearchTree<K extends Comparable<K>, V>
             parent.right = new Node(key, value);
         }
 
-        size++;                     // <<< NEU: Größe erhöhen
+        size++; //  NEU: Größe erhöhen
 
-        return null;                // neuer Eintrag
+        return null;
     }
 
 }

@@ -7,10 +7,6 @@
   <BreakpointListItem trigger="" line="85" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
   <BreakpointListItem trigger="" line="90" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
   <BreakpointListItem trigger="" line="97" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Source/Aufgabe4_2.s" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="51" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="2" filename="Source/Aufgabe6.s" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="54" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="2" filename="Source/Aufgabe6.s" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="58" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="2" filename="Source/Aufgabe6.s" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="61" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="2" filename="Source/Aufgabe6.s" useHWbreakpoint="false"/>
  </Breakpoints>
  <ExecutionProfileWindow/>
  <FrameBuffer>
@@ -175,7 +171,8 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="50" useTextEdit="1" path="Source/Aufgabe6.s" left="0" selected="1" top="39" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="245" useTextEdit="1" path="Source/Aufgabe6.s" left="0" selected="1" top="229" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="159" useTextEdit="1" path="../../../../../Downloads/Aufgabe6.s" left="0" top="145" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="Aufgabe6" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Enes/Dropbox/Enes Dosya Dropbox/Studium/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/DigitalLabor-master" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <EMStudioWindow activeProject="Aufgabe6" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Enes/Downloads" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

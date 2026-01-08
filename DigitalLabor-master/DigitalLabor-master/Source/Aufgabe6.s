@@ -13,148 +13,280 @@
 .global main /* Specify global symbol */
 .global swi_handler /* Specify global symbol */
 
-.equ DELAYCONST, 3  
+/************* Stack *************/
+.equ STACK_START, 0x40001000
 
-/* -------------------------------------------------
-   GPIO Register
-------------------------------------------------- */
+/************* GPIO (wie Abgabe 5) *************/
 .equ IOPIN0, 0xE0028000
 .equ IOPIN1, 0xE0028010
 .equ IOSET,  0x04
 .equ IODIR,  0x08
 .equ IOCLR,  0x0C
 
-/* -------------------------------------------------
-   SWI Nummern
-------------------------------------------------- */
-.equ SWI_LED_INIT,    0
-.equ SWI_LED_ON,      1
-.equ SWI_LED_OFF,     2
-.equ SWI_LED_TOGGLE,  3
-.equ SWI_KEY_INIT,    4
-.equ SWI_IS_PRESSED,  5
-.equ SWI_DELAY,       6
+/************* SWI Function IDs (Bits 23..16) *************/
+.equ LED_INIT,     (0 << 16)
+.equ LED_ON,       (1 << 16)
+.equ LED_OFF,      (2 << 16)
+.equ LED_TOGGLE,   (3 << 16)
+.equ KEY_INIT,     (4 << 16)
+.equ IS_PRESSED,   (5 << 16)
+.equ DELAY,        (6 << 16)
 
-/* -------------------------------------------------
-   main – Testanwendung
-------------------------------------------------- */
+/************* Pins *************/
+.equ BTN0_PIN, 10
+.equ BTN1_PIN, 11
+.equ BTN2_PIN, 12
+.equ BTN3_PIN, 13
+.equ LED_BASE, 16          // LEDs are 16..23
+
+/************* Jump Table *************/
+EntryTable:
+    .word _ledInit
+    .word _ledOn
+    .word _ledOff
+    .word _ledToggle
+    .word _keyInit
+    .word _isPressed
+    .word _delay
+
+/* pin , delta */
+ButtonTable:
+    .word BTN0_PIN,  2
+    .word BTN1_PIN,  1
+    .word BTN2_PIN, -1
+    .word BTN3_PIN, -2
+
+
+
+/*************************************************
+ * USER PROGRAM (Testanwendung)
+ * Button0: +1, Button1: +2, Button2: -1, Button3: -2
+ * count clamped 0..8, LEDs show "filled" state
+ *************************************************/
 main:
-        LDR     SP, =0x40001000     // Stack Pointer setzen
+    ldr sp, =STACK_START
 
-        /* LED 0 initialisieren */
-        MOV     R0, #16             // Pin für LED
-        SWI     #SWI_LED_INIT       // LED initialisieren
+    /* init buttons as input */
+    mov r0, #BTN0_PIN
+    swi KEY_INIT
+    mov r0, #BTN1_PIN
+    swi KEY_INIT
+    mov r0, #BTN2_PIN
+    swi KEY_INIT
+    mov r0, #BTN3_PIN
+    swi KEY_INIT
+
+    /* init leds as output */
+    mov r5, #LED_BASE      // current pin
+init_leds:
+    mov r0, r5
+    swi LED_INIT
+    add r5, r5, #1
+    cmp r5, #24            // stop after 23
+    blt init_leds
+
+    mov r6, #0             // count = 0..8
 
 loop:
-        /* LED ein */
-        MOV     R0, #16
-        SWI     #SWI_LED_OFF         // LED ein
+    ldr r8, =ButtonTable   // Tabellenzeiger
+    mov r9, #4             // Anzahl Buttons
 
-        MOV     R0, #1000           // Verzögerungswert
-        SWI     #SWI_DELAY           // Verzögerung aufrufen
+check_buttons:
+    ldr r0, [r8]           // pin
+    swi IS_PRESSED
+    cmp r0, #0
+    beq next_button
 
-        /* LED aus */
-        MOV     R0, #16
-        SWI     #SWI_LED_OFF        // LED aus
+    /* gedrückt → delta anwenden */
+    ldr r1, [r8, #4]       // delta
+    add r6, r6, r1
 
-        MOV     R0, #1000           // Verzögerungswert
-        SWI     #SWI_DELAY           // Verzögerung aufrufen
+/* wait for release (gemeinsam!) */
+wait_release:
+    ldr r0, [r8]           // gleicher pin
+    swi IS_PRESSED
+    cmp r0, #0
+    bne wait_release
 
-        B       loop                 // Unendliche Schleife
+    b after_buttons        // nur ein Button pro Loop
 
-/* -------------------------------------------------
-   SWI Handler
-------------------------------------------------- */
+next_button:
+    add r8, r8, #8         // nächster Eintrag
+    subs r9, r9, #1
+    bne check_buttons
+
+
+after_buttons:
+    /* clamp 0..8 */
+    cmp r6, #0
+    movlt r6, #0
+    cmp r6, #8
+    movgt r6, #8
+
+update_leds:
+    /* for i=0..7: if i<count -> on else off */
+    mov r7, #0
+    mov r5, #LED_BASE
+
+led_loop:
+    cmp r7, r6
+    mov r0, r5
+    swilt LED_ON
+    swige LED_OFF
+
+
+next_led:
+    add r7, r7, #1
+    add r5, r5, #1
+    cmp r7, #8
+    blt led_loop
+
+    /* small delay (optional, kann bleiben) */
+    ldr r0, =60000
+    swi DELAY
+
+    b loop
+
+
+
+/*************************************************
+ * SWI HANDLER (robust, ohne "0xFFFF" immediate)
+ * Strategy:
+ *  - Read SWI instruction word at (lr-4)
+ *  - Keep 24-bit comment field
+ *  - r1 = function index = bits 23..16
+ *  - param = low 16 bits (extracted via shifts)
+ *  - if param != 0 -> r0 = param else keep r0
+ *************************************************/
 swi_handler:
-        stmfd   sp!, {r0-r3, lr}     // Sichern der Register
+    stmfd sp!, {r1-r3, lr}
 
-        /* SWI Nummer aus Instruktion holen */
-        ldr     r1, [lr, #-4]        // Holen der SWI-Nummer
-        bic     r1, r1, #0xFF000000  // Nur die SWI-Nummer extrahieren
+    ldr  r3, [lr, #-4]         // instruction word
+    lsl  r3, r3, #8            // drop top 8 bits (opcode/cond)
+    lsr  r3, r3, #8            // r3 now = 24-bit comment field
 
-        cmp     r1, #SWI_LED_INIT
-        beq     swi_led_init
+    mov  r1, r3, lsr #16       // function index (0..255)
 
-        cmp     r1, #SWI_LED_ON
-        beq     swi_led_on
+    /* extract low 16 bits param WITHOUT 0xFFFF mask */
+    mov  r2, r3
+    lsl  r2, r2, #16
+    lsr  r2, r2, #16           // r2 = param (0..65535)
 
-        cmp     r1, #SWI_LED_OFF
-        beq     swi_led_off
+    cmp  r2, #0
+    movne r0, r2               // if param present -> r0=param
 
-        cmp     r1, #SWI_LED_TOGGLE
-        beq     swi_led_toggle
+    ldr  r3, =EntryTable
+    ldr  r3, [r3, r1, lsl #2]
+    bx   r3
 
-        cmp     r1, #SWI_DELAY
-        beq     swi_delay
-
-        b       swi_end
-
-/* -------------------------------------------------
-   LED Initialisieren
-------------------------------------------------- */
-swi_led_init:
-        ldr     r2, =IOPIN1
-        add     r2, r2, #IODIR
-        ldr     r3, [r2]
-        orr     r3, r3, #(1 << 16)  // Setze Pin 16 als Ausgang
-        str     r3, [r2]
-        b       swi_end
-
-/* -------------------------------------------------
-   LED an
-------------------------------------------------- */
-swi_led_on:
-        ldr     r2, =IOPIN1
-        add     r2, r2, #IOSET
-        mov     r3, #(1 << 16)      // Setze Pin 16
-        str     r3, [r2]
-        b       swi_end
-
-/* -------------------------------------------------
-   LED aus
-------------------------------------------------- */
-swi_led_off:
-        ldr     r2, =IOPIN1
-        add     r2, r2, #IOCLR
-        mov     r3, #(1 << 16)      // Lösche Pin 16
-        str     r3, [r2]
-        b       swi_end
-
-/* -------------------------------------------------
-   LED umschalten
-------------------------------------------------- */
-swi_led_toggle:
-        ldr     r2, =IOPIN1
-        ldr     r3, [r2]
-        tst     r3, #(1 << 16)      // Teste, ob Pin 16 gesetzt ist
-        beq     swi_led_on
-        b       swi_led_off
-
-/* -------------------------------------------------
-   Verzögerung
-------------------------------------------------- */
-swi_delay:
-        bl      delay                // Aufruf der delay Funktion
-        b       swi_end              // Rückkehr zum Handler
-
-/* -------------------------------------------------
-   Ende SWI
-------------------------------------------------- */
 swi_end:
-        ldmfd   sp!, {r0-r3, lr}     // Wiederherstellen der Register
-        bx      lr                    // Rückkehr vom Handler
+    ldmfd sp!, {r1-r3, pc}^
 
-/* -------------------------------------------------
-   delay Funktion
-------------------------------------------------- */
-delay:
-        stmfd     sp!, {r4}         // r4 sichern
 
-        ldr     r4, =DELAYCONST  
+/*************************************************
+ * helper: compute base + mask
+ * IN:  r0=pin
+ * OUT: r1=base(IOPIN0/1), r4=mask(1<<pin)
+ *************************************************/
+_calc_base_and_mask:
+    mov r4, #1
+    lsl r4, r4, r0
 
+    cmp r0, #16
+    ldrlt r1, =IOPIN0
+    ldrge r1, =IOPIN1
+    bx lr
+
+
+/************* Kernel functions *************/
+_ledInit:
+    push {r4, r5, lr}
+    bl _calc_base_and_mask
+
+    add r5, r1, #IODIR
+    ldr r2, [r5]
+    orr r2, r2, r4
+    str r2, [r5]
+
+    pop {r4, r5, lr}
+    b swi_end
+
+
+_ledOn:
+    push {r4, r5, lr}
+    bl _calc_base_and_mask
+
+    add r5, r1, #IOSET
+    str r4, [r5]
+
+    pop {r4, r5, lr}
+    b swi_end
+
+
+_ledOff:
+    push {r4, r5, lr}
+    bl _calc_base_and_mask
+
+    add r5, r1, #IOCLR
+    str r4, [r5]
+
+    pop {r4, r5, lr}
+    b swi_end
+
+
+_ledToggle:
+    push {r4, r5, lr}
+    bl _calc_base_and_mask
+
+    ldr r2, [r1]           // read IOPINx
+    tst r2, r4
+    beq _tgl_on
+
+_tgl_off:
+    add r5, r1, #IOCLR
+    str r4, [r5]
+    b _tgl_done
+
+_tgl_on:
+    add r5, r1, #IOSET
+    str r4, [r5]
+
+_tgl_done:
+    pop {r4, r5, lr}
+    b swi_end
+
+
+_keyInit:
+    push {r4, r5, lr}
+    bl _calc_base_and_mask
+
+    add r5, r1, #IODIR
+    ldr r2, [r5]
+    bic r2, r2, r4         // input = 0
+    str r2, [r5]
+
+    pop {r4, r5, lr}
+    b swi_end
+
+
+_isPressed:
+    /* Active-Low: pressed if (IOPIN & mask)==0 */
+    push {r4, lr}
+    bl _calc_base_and_mask
+
+    ldr r2, [r1]
+    tst r2, r4
+    moveq r0, #1
+    movne r0, #0
+
+    pop {r4, lr}
+    b swi_end
+
+
+_delay:
 delay_loop:
-        subs    r4, r4, #1
-        bne     delay_loop
+    subs r0, r0, #1
+    bne delay_loop
+    b swi_end
 
-        ldmfd     sp, {r4}         // r4 zurückladen
-        bx      lr               // zurück
+.end
