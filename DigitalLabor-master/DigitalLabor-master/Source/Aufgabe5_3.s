@@ -3,7 +3,7 @@
  *
  * SoSe 2024
  *
- *  Created on: <$Date>
+ *  Created on: <$04.01.2026>
  *      Author: <$Name>
  *
  *	Aufgabe : Ein- und Ausgabe über Taster und LEDs
@@ -41,7 +41,7 @@ main:
 
         /* LEDs als Ausgang konfigurieren */
         ldr   r0, =IOPIN1
-        add   r1, r0, #IODIR
+        add   r1, r0, #IODIR // Richtungsregister
         ldr   r2, [r1]
         orr   r2, r2, #(LED_0_bm | LED_1_bm | LED_2_bm | LED_3_bm | \
                         LED_4_bm | LED_5_bm | LED_6_bm | LED_7_bm)
