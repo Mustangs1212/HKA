@@ -171,8 +171,11 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="245" useTextEdit="1" path="Source/Aufgabe6.s" left="0" selected="1" top="229" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="159" useTextEdit="1" path="../../../../../Downloads/Aufgabe6.s" left="0" top="145" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="240" useTextEdit="1" path="Source/Aufgabe6.s" left="0" top="213" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="8" y="225" useTextEdit="1" path="../../../../../Downloads/Aufgabe6.s" left="0" top="68" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe5_1.s" left="0" selected="1" top="16" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe5_2.s" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe5_3.s" left="0" top="0" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="Aufgabe6" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Enes/Downloads" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>
