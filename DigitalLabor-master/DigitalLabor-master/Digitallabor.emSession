@@ -171,10 +171,12 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="60" useTextEdit="1" path="Source/Aufgabe6.s" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="58" useTextEdit="1" path="Source/Aufgabe5_1.s" left="0" top="37" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="41" useTextEdit="1" path="Source/Aufgabe5_2.s" left="0" top="15" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="49" y="43" useTextEdit="1" path="Source/Aufgabe5_3.s" left="0" selected="1" top="43" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="60" useTextEdit="1" path="Source/Aufgabe6.s" left="0" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe5_1.s" left="0" top="7" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Source/Aufgabe5_2.s" left="0" top="18" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="47" useTextEdit="1" path="Source/Aufgabe5_3.s" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="106" useTextEdit="1" path="System/crt0.s" left="0" top="96" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="8" y="94" useTextEdit="1" path="../../../../../Dropbox/Enes Dosya Dropbox/Studium/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/DigitalLabor-master/Source/Aufgabe5_3.s" left="0" top="87" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="Aufgabe6" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Enes/Downloads" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <EMStudioWindow activeProject="Aufgabe5" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/enesercan/Dropbox/Enes Dosya Dropbox/Studium/MAHO/2. Semester_Maho/Teschn_2   Digitallabor/DigitalLabor-master/Source" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

@@ -18,8 +18,8 @@
 
 .equ STACK_START, 0x40001000
 
-.equ LED_FIRST, (1 << 16)
-.equ LED_LAST,  (1 << 23)
+.equ LED_FIRST, (1 << 23)
+.equ LED_LAST,  (1 << 14)
 
 .equ DELAY_3_8, 0x003fffff
 .equ DELAY_5_8, 0x006fffff
@@ -54,7 +54,7 @@ loop:
         bl delay
 
         // Nächste LED
-        lsl r2, r2, #1
+        lsr r2, r2, #1
         cmp r2, #(LED_LAST << 1)
         moveq r2, #LED_FIRST
 

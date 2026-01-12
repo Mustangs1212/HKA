@@ -16,9 +16,9 @@
 .equ IOSET1, 0xe0028014       
        
 .equ STACK_START, 0x40001000 
-.equ LED_0_bm, (1 << 16) 
+.equ LED_0_bm, (1 << 23) 
 
-.equ DELAYCONST, 0x00ffffff  
+.equ DELAY, 0x00ffffff  
 
 main:
 
@@ -29,8 +29,8 @@ start:
 
     // Konfiguration der I/O-Pins als Ausgang
     ldr r0, =IODIR1           
-    ldr r1, [r0] // Wert von r0 in r1 laden
-    orr r1, r1, #0x00ff0000 // die Bits 16 bis 23 in r1 (konfiguriert Pins 16-23 als Ausgang)
+    ldr r1, [r0] // Wert von r0(Ausgang) in r1 laden
+    orr r1, r1, #0x00ff0000 // die Bits 16 bis 23 in r1 als Ausgang setzen
     str r1, [r0]   // Wert aus r1 an Adresse IODIR1 schreiben
 
 
@@ -41,14 +41,12 @@ start:
 loop:
     // Setzen der LEDs mit Bitmaske
     ldr r0, =IOSET1           
-    ldr r1, [r0]              
-    orr r1, r1, r2 // Aktuelles Bitmuster r2 zu r1 hinzufügen
-    str r1, [r0]              
+    str r2, [r0]              
     
     bl delay
 
     // Verschieben des Bitmusters nach links
-    lsl r2, r2, #1 
+    lsr r2, r2, #1 
 
     subs r3, r3, #1
     bne loop              
@@ -62,7 +60,7 @@ stop:
 delay:
         stmfd     sp!, {r4}         // r4 sichern
 
-        ldr     r4, =DELAYCONST  
+        ldr     r4, =DELAY  
 
 delay_loop:
         subs    r4, r4, #1

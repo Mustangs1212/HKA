@@ -4,7 +4,7 @@
  * SoSe 2024
  *
  *  Created on: <$12.01.2026>
- *      Author: <$Muhammed Enes Ercan>
+ *      Author: <$Taha Kilic>
  *
  *	Aufgabe : Softwareinterrupt
  */
