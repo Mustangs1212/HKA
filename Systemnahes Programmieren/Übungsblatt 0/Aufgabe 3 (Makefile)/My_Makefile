@@ -1,0 +1,17 @@
+CFLAGS = -Wno-implicit-function-declaration
+
+all: final
+
+final: main.o functions.o
+	gcc $(CFLAGS) main.o functions.o -o final
+
+main.o: main.c
+	gcc $(CFLAGS) -c main.c
+
+functions.o: functions.c
+	gcc $(CFLAGS) -c functions.c
+
+clean:
+	echo "Removing everything but the source files"
+	rm main.o functions.o final
+
