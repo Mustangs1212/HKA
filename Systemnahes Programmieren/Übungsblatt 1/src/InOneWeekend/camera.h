@@ -14,6 +14,9 @@
 #include "hittable.h"
 #include "material.h"
 
+#include <sys/mman.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 class camera {
   public:
@@ -30,26 +33,46 @@ class camera {
     double defocus_angle = 0;  // Variation angle of rays through each pixel
     double focus_dist = 10;    // Distance from camera lookfrom point to plane of perfect focus
 
+    int processes = 2;
+
     void render(const hittable& world) {
         initialize();
 
-        std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+        // int start_line = 0;
+        // int lines_to_render = image_height / processes;
+        // int extra_lines     = image_height % processes;
 
-        for (int j = 0; j < image_height; j++) {
-            std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
-            for (int i = 0; i < image_width; i++) {
-                color pixel_color(0,0,0);
-                for (int sample = 0; sample < samples_per_pixel; sample++) {
-                    ray r = get_ray(i, j);
-                    pixel_color += ray_color(r, max_depth, world);
-                }
-                write_color(std::cout, pixel_samples_scale * pixel_color);
+        // check if it works
+        std::clog << "Spawning " << processes << " processes...\n" << std::flush;
+        for (int i = 0; i < processes; i++) {
+            int pid = fork();
+
+            if (pid == 0) {
+
+                // child
+
+                child_line(world, i);
+                // child_block(world, i);
+
+                exit(0);
+
+            } else if (pid >= 0) {
+                // parent
+            } else if (pid < 0) {
+                // error
             }
         }
 
-        std::clog << "\rDone.                 \n";
-    }
+        while (wait(NULL) > 0) {}
+        std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+        for (int i = 0; i < image_width * image_height; ++i) {
+            write_color(std::cout, image[i]);
+        }
 
+        std::clog << "\rDone.                 \n";
+
+        munmap(image, sizeof(color) * image_width * image_height);
+    }
   private:
     int    image_height;         // Rendered image height
     double pixel_samples_scale;  // Color scale factor for a sum of pixel samples
@@ -61,9 +84,20 @@ class camera {
     vec3   defocus_disk_u;       // Defocus disk horizontal radius
     vec3   defocus_disk_v;       // Defocus disk vertical radius
 
+    color* image;
+
     void initialize() {
         image_height = int(image_width / aspect_ratio);
         image_height = (image_height < 1) ? 1 : image_height;
+
+    	const int image_size_in_bytes = sizeof(color) * image_width * image_height;
+    	image = (color *) mmap(nullptr,
+    		image_size_in_bytes,
+    		PROT_READ | PROT_WRITE,
+    		MAP_SHARED | MAP_ANONYMOUS,
+    		-1, 0
+    	);
+    	if (image == MAP_FAILED) exit(2);
 
         pixel_samples_scale = 1.0 / samples_per_pixel;
 
@@ -96,6 +130,35 @@ class camera {
         auto defocus_radius = focus_dist * std::tan(degrees_to_radians(defocus_angle / 2));
         defocus_disk_u = u * defocus_radius;
         defocus_disk_v = v * defocus_radius;
+    }
+
+	void renderLine(const hittable& world, const int line) {
+    	for (int i = 0; i < image_width; i++) {
+    		color pixel_color(0,0,0);
+    		for (int sample = 0; sample < samples_per_pixel; sample++) {
+    			ray r = get_ray(i, line);
+    			pixel_color += ray_color(r, max_depth, world);
+    		}
+
+    		image[i + (line * image_width)] = pixel_samples_scale * pixel_color;
+    	}
+    }
+
+	void child_line(const hittable& world, const int i) {
+    	for (int line = i; line < image_height; line += processes) {
+    		renderLine(world, line);
+    	}
+    }
+
+	void child_block(const hittable& world, const int i) {
+    	const int extra_lines = image_height % processes;
+    	int lines_to_render   = image_height / processes ;
+    	const int start_line  = (lines_to_render * i) + std::min(i, extra_lines);
+    	lines_to_render      += (i < extra_lines ? 1 : 0);
+
+    	for (int line = start_line; line < start_line + lines_to_render; line++) {
+    		renderLine(world, line);
+    	}
     }
 
     ray get_ray(int i, int j) const {
