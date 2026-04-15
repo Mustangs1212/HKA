@@ -32,9 +32,7 @@ int main(int argc, char *argv[]) {
 
     // --- ELTERNPROZESS ---
     // Warten auf genau n Kinder
-    for (int i = 0; i < n; i++) {
-        wait(NULL);
-    }
+    while(wait(NULL) < 0);
 
     printf("Parent process finished.\n");
 
