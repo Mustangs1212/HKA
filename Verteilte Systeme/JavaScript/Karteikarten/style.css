@@ -1,0 +1,99 @@
+body {
+    background: #222831;
+    font-family: Arial, sans-serif;
+    color: #d9dad7;
+    font-family:'Times New Roman', Times, serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+}
+
+header {
+    
+    background: #3e4a61;
+    color: #fad3cf;
+    padding: 10px;
+    text-align: center;
+    border-radius: 1em;
+
+}
+
+header nav a {
+    color: #90f6d7;
+    font-weight: bold;
+    text-decoration: none;
+    border: 2px solid #90f6d7;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 1em;
+    cursor: pointer;
+
+}
+
+h2 {
+    color: #d9dad7;
+    text-align: center;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+    height: 98%;
+}
+
+footer {
+    background: #3e4a61;
+    color: #fad3cf;
+    padding: 10px;
+    text-align: center;
+    border-radius: 1em;
+}
+
+footer a {
+    margin: 0 5px;
+    color: #90f6d7;
+    cursor: pointer;
+}
+
+.Stapelübersicht {
+    min-width: 20em;
+    width: auto;
+    margin: 0 auto;
+    padding: 1em;
+    border: 2px solid #90f6d7;
+    border-radius: 1em;
+}
+
+.Stapelübersicht h3 {
+    text-align: center;
+}
+
+.Stapelübersicht ul {
+    text-align: left;
+    padding-left: 5px;
+    list-style-type: none;
+}
+
+#stapel-erstellen {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 1em;
+}
+
+#stapel-erstellen button {
+    width: 9em;
+    height: 2em;
+    font-size: 20px;
+    border-radius: 1em;
+    cursor: pointer;
+}
