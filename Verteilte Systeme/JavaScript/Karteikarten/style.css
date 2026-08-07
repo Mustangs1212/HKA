@@ -13,6 +13,11 @@ body {
     flex-direction: column;
 }
 
+body.light {
+  background: #d7ffdf;
+  color: #333;
+}
+
 /* Header */
 header {
     background: #3e4a61;
@@ -22,7 +27,7 @@ header {
     border-radius: 1em;
 }
 
-header h1 {
+h1 {
     margin: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -41,6 +46,27 @@ header nav a {
     border-radius: 1em;
     cursor: pointer;
 }
+header nav a:hover {
+    background: #90f6d7;
+    color: #3e4a61;
+}
+
+header nav button {
+    color: #90f6d7;
+    font-weight: bold;
+    text-decoration: none;
+    border: 2px solid #90f6d7;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 1em;
+    cursor: pointer;
+    background: none;
+}
+
+header nav button:hover {
+    background: #90f6d7;
+    color: #3e4a61;
+}
 
 /* Main */
 main {
@@ -51,7 +77,6 @@ main {
 }
 
 h2 {
-    color: #d9dad7;
     text-align: center;
     margin-top: 0;
 }
@@ -63,6 +88,9 @@ h2 {
     padding: 1em;
     border: 2px solid #90f6d7;
     border-radius: 1em;
+}
+.stapeluebersicht.light {
+    border-color: #333;
 }
 
 .stapeluebersicht h3 {
@@ -98,7 +126,13 @@ h2 {
     background: #3e4a61;
     color: #fad3cf;
 }
-
+#stapel-erstellen button:hover {
+    background: #90f6d7;
+    color: #3e4a61;
+}
+#stapel-erstellen button.light {
+    border-color: black;
+}
 /* Footer */
 footer {
     background: #3e4a61;
